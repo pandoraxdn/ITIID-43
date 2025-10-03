@@ -1,19 +1,22 @@
-export interface PokemonPaginateReponse{
-    count:      number;
-    next:       string;
-    previous:   string | null;
-    results:    Results[];
-}
-
-export interface Results{
-    name:   string;
-    url:    string;
-}
+// https://app.quicktype.io/
 
 export interface NewPokemonList{
     id:         string | number;
     name:       string;
+    url:        string;
     picture:    string;
+}
+
+export interface PokemonList{
+    count:      number;
+    next:       string;
+    previous:   null | string;
+    results:    Result[];
+}
+
+export interface Result{
+    name: string;
+    url: string;
 }
 
 export interface PokemonSimple {

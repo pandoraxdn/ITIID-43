@@ -1,17 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 interface Props{
     titulo: string;
-    color:  string;
+    color: string;
     action: () => void;
 }
 
-export const BtnTouch = ( { titulo, color, action }:Props ) => {
+export const BtnTouch = ( { titulo, color, action } :Props ) => {
 
     return(
         <TouchableOpacity
-            activeOpacity={0.7}
             onPress={ () => action() }
         >
             <View
@@ -21,9 +20,9 @@ export const BtnTouch = ( { titulo, color, action }:Props ) => {
                 }}
             >
                 <Text
-                    style={style.texto}
+                    style={ style.text }
                 >
-                    { titulo }
+                    {titulo}
                 </Text>
             </View>
         </TouchableOpacity>
@@ -31,22 +30,21 @@ export const BtnTouch = ( { titulo, color, action }:Props ) => {
 }
 
 const style = StyleSheet.create({
-    btn: {
+    btn:{
         alignContent: "center",
         alignItems: "center",
-        backgroundColor: "blue",
         borderRadius: 20,
         borderColor: "black",
-        borderWidth: 4,
-        height: 60,
-        margin: 10,
+        borderWidth: 2,
+        backgroundColor: "blue",
+        height: 50,
         justifyContent: "center",
-        width: 150,
+        margin: 5,
+        width: 200,
     },
-    texto:{
-        fontSize: 40,
-        color: "white"
-    } 
+    text: {
+        color: "white",
+        fontSize: 20,
+    }
 });
-
 

@@ -1,0 +1,8 @@
+assets/                 Archivos/ imágenes,logotipos del aplicativo
+node_modules            Librerias que necesita el proyecto/app
+app.json                Información del nombre del aplicativo y versión del mismo, permisos
+App.tsx                 Archivo Index o inicial del archivo
+index.ts                Define quien es el archivo principal del aplicativo
+package-lock.json       Define las versiones de las dependencias o blibiotecas
+package.json            Lista de dependencias o blibiotecas
+tsconfig.json           Configuración de compilacion de ts

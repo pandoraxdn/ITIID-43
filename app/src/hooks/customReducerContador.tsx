@@ -9,7 +9,7 @@ interface CustomReducerContador{
     add:    () => void;
     add2:   () => void;
     reset:  () => void;
-    dec:    () => void; 
+    dec:    () => void;
     dec2:   () => void;
 }
 
@@ -24,16 +24,16 @@ export const customReducerContador = ( initialState: AuthReducer ): CustomReduce
 
     const countReducer = ( state: AuthReducer, action: Action ) => {
         switch( action.type ){
-            case "add2":
-                return { count: state.count + 2 }
             case "add":
-                return { count: state.count + 1 }
+                return { count: state.count + 1 };
             case "dec":
-                return { count: (state.count != 0) ? state.count - 1 : 0 }
+                return { count: (state.count != 0) ? state.count - 1 : 0 };
+            case "add2":
+                return { count: state.count + 2 };
             case "dec2":
-                return { count: (state.count != 0) ? state.count - 2 : 0 }
+                return { count: (state.count != 0) ? state.count - 2 : 0 };
             case "reset":
-                return { count: initialState.count }
+                return { count: initialState.count };
         }
     }
 

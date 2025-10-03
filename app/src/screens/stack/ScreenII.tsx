@@ -4,40 +4,37 @@ import { RootStackParams } from '../../navigator/StackNav';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Fab } from '../../components/Fab';
 
-interface Props extends StackScreenProps<RootStackParams, "ScreenII">{};
+interface Props extends StackScreenProps<RootStackParams,"ScreenII">{};
 
-export const ScreenII = ( { navigation } :Props ) => {
+export const ScreenII = ( { navigation }:Props ) => {
 
     return(
         <View
-            style = { style.root }
+            style={ style.root }
         >
-            <Text
-                style = { style.text }
-            >
+            <Text>
                 ScreenII
             </Text>
             <Fab
                 titulo='->'
-                position="button_right"
-                action={ () => navigation.navigate("ScreenIII") }
+                position='button_right'
+                action={() => navigation.navigate("ScreenIII")}
             />
             <Fab
                 titulo='<-'
                 position="button_left"
-                action={ () => navigation.navigate("ScreenI") }
+                action={() => navigation.navigate("ScreenI")}
             />
         </View>
     )
 }
 
 const style = StyleSheet.create({
-    root:{
+    root: {
         flex: 1,
-        backgroundColor: "#863DBA"
-    },
-    text:{
-        fontSize: 50,
-        color: "white"
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center"
     }
 });
+

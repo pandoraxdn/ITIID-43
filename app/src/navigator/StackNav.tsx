@@ -1,4 +1,3 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScreenI } from "../screens/stack/ScreenI";
 import { ScreenII } from "../screens/stack/ScreenII";
@@ -24,34 +23,37 @@ export const StackNav = () => {
                 headerShown: true,
                 headerStyle:{
                     height: 50,
-                    shadowColor: "black",
+                    shadowColor: "violet",
                     backgroundColor: "pink",
-                    borderColor: "white",
-                    borderWidth: 4,
+                    borderWidth: 6,
+                    borderColor: "gray",
                     borderRadius: 20,
-                    opacity: 0.8                
+                    opacity: 0.7
                 },
                 headerTitleStyle:{
-                    color: "white",
-                    fontWeight: "bold" 
+                    fontWeight: "bold",
+                    color: "violet"
                 },
-                headerTintColor: "white"
+                headerTintColor: "violet",
+                cardStyle: {
+                    backgroundColor: "white"
+                }
             }}
         >
             <Stack.Screen
                 name="ScreenI"
                 component={ ScreenI }
-                options={{ title: "Pantalla 1" }}
+                options={{ title: "Pantalla incial" }}
             />
             <Stack.Screen
                 name="ScreenII"
                 component={ ScreenII }
-                options={{ title: "Pantalla 2" }}
+                options={{ title: "Pantalla secundaria" }}
             />
             <Stack.Screen
                 name="ScreenIII"
                 component={ ScreenIII }
-                options={{ title: "Pantalla 3" }}
+                options={{ title: "Pantalla terciaria" }}
             />
             <Stack.Screen
                 name="UserScreen"

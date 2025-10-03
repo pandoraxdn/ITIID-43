@@ -3,11 +3,11 @@ import { useState } from "react";
 export interface FormData{
     tarea:      string;
     fecha:      string;
-    proridad:   string;
+    prioridad:  string;
     materia:    string;
 }
 
-interface UseForm{
+interface UseForm {
     form: FormData;
     formList: FormData[];
     handleInputChange: ( fieldName: keyof FormData, value: string ) => void;
@@ -17,10 +17,10 @@ interface UseForm{
 export const useForm = (): UseForm => {
 
     const initialForm: FormData = {
-        tarea:      "",
-        fecha:      "",
-        proridad:   "",
-        materia:    "",
+        tarea: "",
+        materia: "",
+        prioridad: "",
+        fecha: ""
     }
 
     const [ form, setForm ] = useState<FormData>( initialForm );
@@ -30,7 +30,7 @@ export const useForm = (): UseForm => {
     const handleInputChange = ( fieldName: keyof FormData, value: string ) => {
         setForm( (prevData) => ({
             ...prevData,
-            [fieldName]:value
+            [fieldName] : value
         }));
     }
 

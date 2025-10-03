@@ -1,36 +1,36 @@
-// Importar react de la librería de react
-import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text } from "react-native";
 
-// Tipo de dato entero
-//let edad:number = 27
+let edad:number = 20;
+let nombre_alumno:string|number = "Adi";
+nombre_alumno = 20;
+console.log(edad, nombre_alumno);
 
-// Tipo de dato cadena
-// const nombre: string = "Bianca";
-
-// Tipo de dato boolean
-// let estado:boolean = true;
-
-const usuario:[number,string,boolean] = [1,"Bianca",false];
+const usuario:[number,string,boolean] = [1,"Bianca",true];
+const [id, nombre, estado] = usuario;
 
 export const PrimerScreen = () => {
     return (
         <View
             style={{
                 flex: 1,
-                alignSelf: "center",
                 justifyContent: "center",
                 alignItems: "center"
             }}
         >
             <Text
-                style={{
-                    fontSize: 30
-                }}
+                style={{ fontSize: 30 }}
             >
-                { usuario[0] }
-                { usuario[1] }
-                { (usuario[2]) ? "Verdadero" : "Falso" }
+                {id}
+            </Text>
+            <Text
+                style={{ fontSize: 30 }}
+            >
+                {nombre}
+            </Text>
+            <Text
+                style={{ fontSize: 30 }}
+            >
+                {(estado) ? "Verdadero" : "Falso"}
             </Text>
         </View>
     );

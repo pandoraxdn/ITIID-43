@@ -7,7 +7,7 @@ interface Props{
     action:     () => void;
 }
 
-export const Fab = ( { titulo, position, action } : Props ) => {
+export const Fab = ( { titulo, position, action}: Props ) => {
 
     const btnPosition = ( position == "button_right" )
                         ? style.fabLocationBR
@@ -15,8 +15,8 @@ export const Fab = ( { titulo, position, action } : Props ) => {
 
     return(
         <TouchableOpacity
-            style={ btnPosition }
             onPress={ () => action() }
+            style={ btnPosition }
         >
             <View
                 style={ style.fab }
@@ -24,7 +24,7 @@ export const Fab = ( { titulo, position, action } : Props ) => {
                 <Text
                     style={ style.fabText }
                 >
-                    { titulo }
+                    {titulo}
                 </Text>
             </View>
         </TouchableOpacity>
@@ -35,21 +35,21 @@ const style = StyleSheet.create({
     fabLocationBR:{
         position: "absolute",
         bottom: 25,
-        right: 25
+        right: 25,
     },
     fabLocationBL:{
         position: "absolute",
         bottom: 25,
-        left: 25
+        left: 25,
     },
-    fab: {
+    fab:{
         backgroundColor: "violet",
         width: 60,
         height: 60,
         borderRadius: 100,
         justifyContent: "center"
     },
-    fabText: {
+    fabText:{
         color: "white",
         fontSize: 20,
         fontWeight: "bold",

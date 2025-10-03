@@ -5,45 +5,50 @@ import { customContador } from '../hooks/customContador';
 
 export const ContadorScreen = () => {
 
-    const { contador, add, reset, dec } = customContador(10);
+    const initialValue: number = 10;
+
+    const { contador, add, reset, dec } = customContador(initialValue);
 
     return(
         <View
             style={ style.root }
         >
             <Text
-                style={ style.texto }
+                style={ style.text }
             >
                 ContadorScreen: { contador }
             </Text>
             <BtnTouch
-                titulo='Añadir'
-                color='black'
+                titulo='añadir'
+                color='blue'
                 action={ () => add() }
             />
             <BtnTouch
-                titulo='Reiniciar'
+                titulo='reiniciar'
                 color='gray'
                 action={ () => reset() }
             />
             <BtnTouch
-                titulo='Reducir'
-                color='olive'
+                titulo='decrementar'
+                color='violet'
                 action={ () => dec() }
             />
         </View>
-    );
+    )
 }
 
 const style = StyleSheet.create({
     root:{
+        alignItems: "center",
+        alignContent: "center",
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
     },
-    texto: {
-        fontSize: 50,
-        color: "violet"
+    text: {
+        fontSize: 30,
+        color: "violet",
+        borderColor: "black",
+        borderWidth: 4
     }
 });
 

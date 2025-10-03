@@ -1,34 +1,36 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { RootStackParams } from '../../navigator/PokemonNavigator';
 import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../../navigator/PokemonNavigator';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useTypeColorPokemon } from '../../hooks/useTypeColorPokemon';
 import { usePokemonDetail } from '../../hooks/usePokemonDetail';
 import { PokemonDetail } from '../../components/PokemonDetail';
 
 interface Props extends StackScreenProps<RootStackParams,"PokemonScreen">{};
 
-export const PokemonScreen = ( { navigation, route }: Props ) => {
+export const PokemonScreen = ( { navigation, route } : Props ) => {
 
-    const { id, name, picture } = route.params;
+    const { id, name, picture, url } = route.params;
+
     const { color, isLoading } = useTypeColorPokemon( id );
-    const { isLoadingPokemon, pokemon } = usePokemonDetail( id );
+
+    const { pokemon, isLoadingPokemon } = usePokemonDetail( url );
 
     return(
         <View
-            style={{ flex:1 }}
+            style={{ flex:1 }} 
         >
             <View>
                 <View
-                    style={{ 
+                    style={{
                         ...style.leftContainer,
-                        backgroundColor: (isLoading) ? 'gray' : (color.length > 1) ? color[1] : color[ 0 ]
+                        backgroundColor: ( isLoading ) ? 'gray' : ( color.length > 1 ) ? color[1] : color[0]
                     }}
                 />
                 <View
-                    style={{ 
-                        ...style.rightContainer,
-                        backgroundColor: (isLoading) ? 'gray' : color[ 0 ]
+                    style={{
+                        ...style.rigthContainer,
+                        backgroundColor: ( isLoading ) ? 'pink' : color[0]
                     }}
                 />
             </View>
@@ -41,10 +43,10 @@ export const PokemonScreen = ( { navigation, route }: Props ) => {
                     style={ style.backBtn }
                 >
                     <View>
-                        <Text 
+                        <Text
                             style={ style.row }
                         >
-                            ←
+                            ← 
                         </Text>
                         <Text
                             style={ style.pokemonName }
@@ -54,25 +56,30 @@ export const PokemonScreen = ( { navigation, route }: Props ) => {
                     </View>
                 </TouchableOpacity>
                 <Image
+                    source={ require("./../../../assets/pokeball-light.png") }
                     style={ style.pokeball }
-                    source={ require('./../../../assets/pokeball-light.png') }
                 />
                 <Image
-                    style={ style.pokemonImage }
-                    source={{ uri: picture }}
+                    source={ picture }
+                    style={ style.pokemon }
                 />
             </View>
-            {/* Detail */}
+            {/*Detail*/}
             {
-               (isLoadingPokemon)
-               ? (
-                 <ActivityIndicator
-                     color="black"
-                     size={ 60 }
-                     style={{ height: 100 }}
-                 />
-               )
-               : <PokemonDetail pokemon={ pokemon } />
+                (isLoadingPokemon)
+                ? (
+                    <View>
+                        <ActivityIndicator
+                            color="black"
+                            size={ 60 }
+                            style={{ height: 100 }}
+                        />
+                    </View>        
+                )
+                :
+                    <PokemonDetail
+                        pokemon={ pokemon }
+                    />
             }
         </View>
     );
@@ -88,7 +95,7 @@ const style = StyleSheet.create({
         borderBottomLeftRadius: 1000,
         //borderTopLeftRadius: 1000,
     },
-    rightContainer: {
+    rigthContainer: {
         position: "absolute",
         right: 0,
         height: 370,
@@ -97,12 +104,12 @@ const style = StyleSheet.create({
         //borderBottomRightRadius: 1000,
         borderTopRightRadius: 1000,
     },
-    headerContainer:{
+    headerContainer: {
         alignItems: "center",
         height: 370,
         zIndex: 999,
         borderBottomRightRadius: 1000,
-        borderTopLeftRadius: 1000,
+        borderBottomLeftRadius: 1000,
     },
     backBtn: {
         position: "absolute",
@@ -111,8 +118,15 @@ const style = StyleSheet.create({
     },
     row: {
         color: "white",
-        fontSize: 80,
+        fontSize: 70,
         top: 20
+    },
+    pokemonName: {
+        color: "white",
+        fontSize: 20,
+        fontWeight: "bold",
+        alignSelf: "flex-start",
+        left: 20
     },
     pokeball: {
         height: 300,
@@ -121,19 +135,11 @@ const style = StyleSheet.create({
         position: "absolute",
         top: 30
     },
-    pokemonImage:{
-        top: 65,
+    pokemon: {
+        top: 60,
         height: 220,
-        position: "absolute",
-        width: 220
+        width: 220,
+        position: "absolute"
     },
-    pokemonName: {
-        color: "white",
-        fontSize: 30,
-        fontWeight: "bold",
-        alignSelf: "flex-start",
-        top: 5,
-        marginHorizontal: 12
-    }
 });
 

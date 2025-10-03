@@ -1,19 +1,15 @@
 import React from 'react';
-import { View, Text, FlatList, ActivityIndicator, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
 import { usePokemonPaginated } from '../../hooks/usePokemonPaginated';
 import { PokemonCard } from '../../components/PokemonCard';
 
 export const HomePokemon = () => {
 
-    const { simplePokemonList, loadPokemon } = usePokemonPaginated();
+    const { loadPokemons, simplePokemonList } = usePokemonPaginated();
 
     return(
         <View
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center"
-            }}
+            style={ style.root }
         >
             <FlatList
                 data={ simplePokemonList }
@@ -22,22 +18,17 @@ export const HomePokemon = () => {
                 ListHeaderComponent={(
                     <View>
                         <Image
-                            style={{ 
-                                height: 300, 
+                            source={ require("./../../../assets/pokeball-dark.png") }
+                            style={{
                                 width: 300,
+                                height: 300,
+                                position: "absolute",
                                 top: -100,
                                 right: -100,
-                                position: "absolute"
                             }}
-                            source={ require("./../../../assets/pokeball-dark.png") }
                         />
                         <Text
-                            style={{
-                                marginTop: 20,
-                                fontWeight: "bold",
-                                fontSize: 40,
-                                marginHorizontal: 10
-                            }}
+                            style={{ fontSize: 60, marginHorizontal: 10 }}
                         >
                             Pokedex
                         </Text>
@@ -45,19 +36,21 @@ export const HomePokemon = () => {
                 )}
                 // Body
                 showsVerticalScrollIndicator={false}
-                numColumns={2} // OJO si hago un cambio reiniciar app 
+                numColumns={2} // Ojo si lo cambio debo reiniciar el app
                 renderItem={ ({item}) => (
                     <PokemonCard
-                        {...item}
+                        { ...item }
                     />
                 )}
-                // Footer
-                onEndReached={ loadPokemon }
+
+                // Infinite Scroll
+                onEndReached={ loadPokemons }
                 onEndReachedThreshold={ 0.2 }
+                // Footer
                 ListFooterComponent={(
                     <ActivityIndicator
                         style={{ height: 120 }}
-                        size={ 50 }
+                        size={ 60 }
                         color="pink"
                     />
                 )}
@@ -65,3 +58,12 @@ export const HomePokemon = () => {
         </View>
     );
 }
+
+const style = StyleSheet.create({
+    root:{
+        flex:1,
+        justifyContent: "center",
+        alignItems: "center"
+    }
+});
+

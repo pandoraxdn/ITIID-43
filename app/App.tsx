@@ -1,20 +1,26 @@
 import React from 'react';
 //import { View } from 'react-native';
-//import { NavigationContainer } from '@react-navigation/native';
-//import { PrimerScreen } from './src/screens/PrimerScreen';
-//import { MiPrimerComponenteScreen } from './src/screens/MiPrimerComponenteScreen';
-//import { StyleScreen } from './src/screens/StyleScreen';
-//import { ContadorScreen } from './src/screens/ContadorScreen';
-//import { PhoneScreen } from './src/screens/PhoneScreen';
-//import { SanValentinScreen } from './src/screens/SanValentinScreen';
-//import { ContadorReducerScreen } from './src/screens/ContadorReducerScreen';
-//import { StackNav } from './src/navigator/StackNav';
+import { NavigationContainer } from '@react-navigation/native';
 //import { PokemonNavigator } from './src/navigator/PokemonNavigator';
-import { FormScreen } from './src/screens/FormScreen';
+//import { StackNav } from './src/navigator/StackNav';
+//import { PrimerScreen } from './src/screens/PrimerScreen';
+//import { MiPrimerDiseno } from './src/screens/MiPrimerDiseno';
+//import { PrimerComponente } from './src/screens/PrimerComponente';
+//import { ContadorScreen } from './src/screens/ContadorScreen';
+//import { ComponenteStyle } from './src/screens/ComponenteStyle';
+//import { ContadorReducerScreen } from './src/screens/ContadorReducerScreen';
+//import { MiPrimerScreen } from './src/screens/MiPrimerScreen-maestro';
+//import { MiPrimerDiseno } from './src/screens/MiPrimerDiseno-maestro';
+//import { MiPrimerContador } from './src/screens/MiPrimerContador-maestro';
+//import { FormScreen } from './src/screens/FormScreen';
+import { TareaNavigator } from './src/navigator/TareaNavigator';
 
 const App = () => {
-    return (
-        <FormScreen/>
+
+    return(
+        <NavigationContainer>
+            <TareaNavigator/>
+        </NavigationContainer>
     );
 }
 

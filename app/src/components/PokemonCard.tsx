@@ -1,115 +1,118 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
-import { NewPokemonList } from '../interfaces/pokemonInterfaces';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTypeColorPokemon } from '../hooks/useTypeColorPokemon';
 
-export const PokemonCard = ( { id, name, picture } : NewPokemonList ) => {
+interface Props{
+    id:         number | string;
+    name:       string;
+    picture:    string;
+    url:        string;
+}
 
-    const pokemon: NewPokemonList = { id, name, picture };
+export const PokemonCard = ( { id, name, picture, url } :Props ) => {
 
-    const { color, isLoading } = useTypeColorPokemon( id );
+    const widthDimensions = Dimensions.get("window").width;
 
-    console.log(color);
-
-    const widthWindows = Dimensions.get("window").width;
     const navigation = useNavigation();
+
+    const { isLoading, color } = useTypeColorPokemon( id );
 
     return(
         <TouchableOpacity
-            onPress={ () => { navigation.navigate("PokemonScreen", pokemon ) } }
+            onPress={ () => navigation.navigate("PokemonScreen", { id, name, picture, url} ) }
         >
             <View
                 style={{
-                    ...style.containerCard,
-                    width: widthWindows * 0.4,
+                    ...style.cardContainer,
+                    width: widthDimensions * 0.4,
                 }}
             >
                 <View
                     style={{
-                        ...style.backGroundTop,
-                        backgroundColor: (isLoading) ? 'gray' : (color.length > 1) ? color[1] : color[0] 
+                        ...style.backgroundTop,
+                        backgroundColor: (isLoading) ? "gray" : (color.length > 1) ? color[1] : color[0]
                     }}
                 />
                 <View
                     style={{
-                        ...style.backGroundBottom,
-                        backgroundColor: (isLoading) ? 'pink' : color[0] 
+                        ...style.backgroundButtom,
+                        backgroundColor: (isLoading) ? "gray" : color[0]
                     }}
                 />
                 <Image
                     style={ style.pokeball }
-                    source={ require('./../../assets/pokeball-dark.png') }
+                    source={ require("./../../assets/pokeball-light.png") }
                 />
-                <Text
-                    style={ style.text }
-                >
-                    { `${name}` }
-                    { `\n#${id}` }
-                </Text>
                 <Image
                     style={ style.pokemon }
                     source={{ uri: picture }}
                 />
+                <Text
+                    style={ style.name }
+                >
+                    { `${name}` }
+                    { `\n#${id}` }
+                </Text>
             </View>
         </TouchableOpacity>
     );
 }
 
 const style = StyleSheet.create({
-    containerCard: {
+    cardContainer: {
         marginHorizontal: 10,
-        height: 120,
         width: 120,
+        height: 120,
         marginBottom: 25,
         borderRadius: 20,
         overflow: "hidden"
     },
-    backGroundTop:{
+    backgroundTop: {
         position: "absolute",
         top: 0,
         left: 0,
         right: 0,
         bottom: "50%",
-        backgroundColor: "gray",
+        backgroundColor: "pink",
         transform: [
             { rotateX: "20deg" },
-            { rotateY: "-45deg" },
+            { rotateY: "-40deg" },
             { scale: 2 }
         ]
     },
-    backGroundBottom:{
+    backgroundButtom: {
         position: "absolute",
         top: "50%",
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "pink",
+        backgroundColor: "gray",
         transform: [
             { rotateX: "20deg" },
-            { rotateY: "-45deg" },
+            { rotateY: "-40deg" },
             { scale: 2 }
         ]
     },
-    pokemon: {
-        height: 75,
-        width: 75,
-        position: "absolute",
-        right: -8,
-        bottom: -5
-    },
-    text: {
-        marginHorizontal: 10,
+    name: {
         color: "white",
-        fontSize: 22
+        fontSize: 18,
+        marginHorizontal: 10
     },
     pokeball: {
-        height: 110,
-        width: 110,
+        height: 120,
+        width: 120,
         position: "absolute",
         bottom: -20,
         right: -20,
         opacity: 0.5
+    },
+    pokemon: {
+        width: 90,
+        height: 90,
+        position: "absolute",
+        right: -8,
+        bottom: -5
     }
 });
 

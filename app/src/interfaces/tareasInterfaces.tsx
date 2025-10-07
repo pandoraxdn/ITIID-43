@@ -3,5 +3,5 @@ export interface TareaResponse{
     nombre:     string;
     materia:    string;
     fecha:      string;
-    proridad:   number;
+    prioridad:  number;
 }

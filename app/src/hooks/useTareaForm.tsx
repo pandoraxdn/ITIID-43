@@ -6,7 +6,7 @@ export interface FormData{
     nombre:     string;
     materia:    string;
     fecha:      string;
-    proridad:   number;
+    prioridad:  number;
 }
 
 export const useTareaForm = () => {
@@ -18,7 +18,7 @@ export const useTareaForm = () => {
         nombre:     "",
         materia:    "",
         fecha:      "",
-        proridad:   0
+        prioridad:   0
     }
 
     type Action = { type: "handleInputChange", payload: { fieldName: keyof FormData, value: string | number } };

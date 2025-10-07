@@ -1,8 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { FormScreen } from "../screens/tarea/FormScreen";
+import { HomeTarea } from "../screens/tarea/HomeTarea";
+import { TareaResponse } from "../interfaces/tareasInterfaces";
 
 export type RootStackParams = {
-    FormScreen:    undefined;
+    FormScreen:     TareaResponse;
+    HomeTarea:      undefined;
 }
 
 export const TareaNavigator = () => {
@@ -11,7 +14,7 @@ export const TareaNavigator = () => {
 
     return(
         <Stack.Navigator
-            initialRouteName="FormScreen"
+            initialRouteName="HomeTarea"
             screenOptions={{
                 headerMode: "float",
                 headerShown: false,
@@ -20,6 +23,10 @@ export const TareaNavigator = () => {
             <Stack.Screen
                 name="FormScreen"
                 component={ FormScreen }
+            />
+            <Stack.Screen
+                name="HomeTarea"
+                component={ HomeTarea }
             />
         </Stack.Navigator>
     );

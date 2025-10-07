@@ -16,7 +16,7 @@ export const useTareaApi = (): UseTareaApi => {
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ listTareas, setListTareas ] = useState<TareaResponse>({} as TareaResponse);
 
-    const apiUrl = "http://localhost:3000/api/dsm43/tarea";
+    const apiUrl = "http://10.172.189.74:3000/api/dsm43/tarea";
 
     const loadTareas = async () => {
         setIsLoading(true);
@@ -31,10 +31,10 @@ export const useTareaApi = (): UseTareaApi => {
 
     const createTarea = async ( data: FormData ) => {
         const dataBody = {
-            "nombre":   data.nombre,
-            "materia":  data.materia,    
-            "fecha":    data.fecha,
-            "proridad": data.proridad,
+            "nombre":       data.nombre,
+            "materia":      data.materia,    
+            "fecha":        data.fecha,
+            "prioridad":    Number(data.prioridad),
         }
 
         await pandorApi.post(apiUrl, dataBody);
@@ -46,7 +46,7 @@ export const useTareaApi = (): UseTareaApi => {
             "nombre":   data.nombre,
             "materia":  data.materia,    
             "fecha":    data.fecha,
-            "proridad": data.proridad,
+            "prioridad": Number( data.prioridad ),
         }
 
         await pandorApi.patch(apiUrl + `/${data.id_tarea}`, dataBody);

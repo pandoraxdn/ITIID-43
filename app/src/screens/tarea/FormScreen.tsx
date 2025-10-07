@@ -1,12 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { appTheme } from '../../themes/appTheme';
 import { BtnTouch } from '../../components/BtnTouch';
 import { useTareaForm } from '../../hooks/useTareaForm';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../../navigator/TareaNavigator';
 
-export const FormScreen = () => {
+interface Props extends StackScreenProps<RootStackParams,"FormScreen">{};
+
+export const FormScreen = ( { navigation, route }: Props ) => {
     
-    const { state, handleSubmit, handleInputChange } = useTareaForm();
+    const { state, handleSubmit, handleInputChange, handleDelete } = useTareaForm();
+
+    useEffect(() => {
+        const tarea = route.params;
+        handleInputChange("nombre", tarea.nombre);
+        handleInputChange("id_tarea", tarea.id_tarea);
+        handleInputChange("materia", tarea.materia);
+        handleInputChange("prioridad", tarea.prioridad);
+        handleInputChange("fecha", tarea.fecha);
+    }, []);
 
     return(
         <View
@@ -17,6 +30,18 @@ export const FormScreen = () => {
             >
                 Formulario de tareas
             </Text>
+            { 
+                (state.id_tarea != 0 ) && (
+                    <BtnTouch
+                        titulo='Eliminar tarea'
+                        color='red'
+                        action={() => {
+                            handleDelete();
+                            navigation.popToTop();
+                        }}
+                    />
+                )
+            }
             <View
                 style={ appTheme.container }
             >
@@ -89,13 +114,23 @@ export const FormScreen = () => {
                 <TextInput
                     style={ appTheme.textInput }
                     placeholder='Prioridad de la Tarea'
-                    value={ `${state.proridad}` }
-                    onChangeText={ (value) => handleInputChange("proridad",value) }
+                    value={ `${state.prioridad}` }
+                    onChangeText={ (value) => handleInputChange("prioridad",value) }
                 />
                 <BtnTouch
                     titulo='Guardar tarea'
                     color='violet'
-                    action={ () => handleSubmit() }
+                    action={ () => {
+                        handleSubmit();
+                        navigation.popToTop();
+                    }}
+                />
+                <BtnTouch
+                    titulo='Regresar'
+                    color='violet'
+                    action={ () => {
+                        navigation.popToTop();
+                    }}
                 />
             </View>
         </View>

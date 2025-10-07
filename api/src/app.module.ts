@@ -4,9 +4,22 @@ import { AppService } from './app.service';
 import { TareaModule } from './tareas/tarea.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Tarea } from './tareas/entities/tarea.entity';
+import { Usuario } from './usuarios/entities/usuario.entity';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+        type: "mariadb",
+        host: "localhost",
+        port: 3306,
+        username: "najimi",
+        password: "pass",
+        database: "dsm43",
+        entities: [ Tarea ],
+        synchronize: true,
+        autoLoadEntities: true,
+    }),
     TypeOrmModule.forRoot({
         type: "postgres",
         host: "localhost",
@@ -14,11 +27,12 @@ import { Tarea } from './tareas/entities/tarea.entity';
         username: "najimi",
         password: "pass",
         database: "dsm432025",
-        entities: [ Tarea ],
+        entities: [ Usuario ],
         synchronize: true,
-        autoLoadEntities: false,
+        autoLoadEntities: true,
     }),
-    TareaModule
+    TareaModule,
+    UsuariosModule
   ],
   controllers: [AppController],
   providers: [AppService],

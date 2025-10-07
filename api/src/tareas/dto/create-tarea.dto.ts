@@ -17,7 +17,5 @@ export class CreateTarea{
     fecha:  string;
 
     @IsNumber()
-    @MaxLength(255)
-    @MinLength(5)
     prioridad:  number;
 }

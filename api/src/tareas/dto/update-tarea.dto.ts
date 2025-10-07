@@ -20,8 +20,6 @@ export class UpdateTarea{
     fecha:  string;
 
     @IsNumber()
-    @MaxLength(255)
-    @MinLength(5)
     @IsOptional()
     prioridad:  number;
 }

@@ -31,7 +31,7 @@ export const FormScreen = ( { navigation, route }: Props ) => {
                 Formulario de tareas
             </Text>
             { 
-                (state.id_tarea != 0 ) && (
+                (state.id_tarea !== 0) && (
                     <BtnTouch
                         titulo='Eliminar tarea'
                         color='red'

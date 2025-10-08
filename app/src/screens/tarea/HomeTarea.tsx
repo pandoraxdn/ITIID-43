@@ -56,7 +56,7 @@ export const HomeTarea = () => {
                         <BtnTouch
                             titulo='Crear tarea'
                             color='blue'
-                            action={() => navigation.navigate("FormScreen", { tarea: create })}
+                            action={() => navigation.navigate("FormScreen", { ...create })}
                         />
                     </View>
                 )}

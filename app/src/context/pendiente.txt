@@ -1,0 +1,26 @@
+    En React Native, el "context" se refiere a una 
+    característica que permite pasar datos y funcionalidad 
+    desde un componente padre a sus componentes hijos, 
+    sin tener que pasar propiedades manualmente a través 
+    de la jerarquía de componentes. El contexto es 
+    especialmente útil cuando se necesita compartir 
+    información común, como datos de autenticación, 
+    preferencias del usuario o cualquier otro estado global, 
+    con varios componentes en la aplicación.
+
+    El contexto en React Native se basa en el concepto 
+    de Context API, que también es parte de la biblioteca 
+    React. La Context API proporciona dos componentes 
+    principales:
+
+    Provider: Este componente permite definir y proporcionar 
+              un contexto que contiene los datos y métodos 
+              que desea compartir con los componentes hijos.
+
+    Consumer: Los componentes hijos pueden 
+              suscribirse al contexto utilizando el 
+              componente Consumer. 
+              Esto les permite acceder a los datos 
+              proporcionados por el Provider en su jerarquía 
+              de componentes sin necesidad de pasar props 
+              manualmente.

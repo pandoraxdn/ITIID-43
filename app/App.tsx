@@ -13,13 +13,14 @@ import { NavigationContainer } from '@react-navigation/native';
 //import { MiPrimerDiseno } from './src/screens/MiPrimerDiseno-maestro';
 //import { MiPrimerContador } from './src/screens/MiPrimerContador-maestro';
 //import { FormScreen } from './src/screens/FormScreen';
-import { TareaNavigator } from './src/navigator/TareaNavigator';
+//import { TareaNavigator } from './src/navigator/TareaNavigator';
+import { DrawerNavigator } from './src/navigator/DrawerNavigator';
 
 const App = () => {
 
     return(
         <NavigationContainer>
-            <TareaNavigator/>
+            <DrawerNavigator/>
         </NavigationContainer>
     );
 }

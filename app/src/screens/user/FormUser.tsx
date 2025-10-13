@@ -1,25 +1,31 @@
 import React, { useEffect } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Image, Alert } from 'react-native';
 import { appTheme } from '../../themes/appTheme';
 import { BtnTouch } from '../../components/BtnTouch';
-import { useTareaForm } from '../../hooks/useTareaForm';
+import { useFormUser } from '../../hooks/useFormUser';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParams } from '../../navigator/TareaNavigator';
+import { RootStackParams } from '../../navigator/UserNavigator';
+import { useImagePicker } from '../../hooks/useImagePicker';
 
-interface Props extends StackScreenProps<RootStackParams,"FormScreen">{};
+interface Props extends StackScreenProps<RootStackParams,"FormUser">{};
 
-export const FormScreen = ( { navigation, route } :Props ) => {
+export const FormUser = ( { navigation, route } :Props ) => {
 
-    const { state, handleInputChange, handleSubmit, handleDelete } = useTareaForm();
+    const { state, handleInputChange, handleSubmit, handleDelete } = useFormUser();
+    const { imagen64, pickImage } = useImagePicker();
 
     useEffect(() => {
-        const tarea = route.params;
-        handleInputChange("id_tarea", tarea.id_tarea);
-        handleInputChange("nombre", tarea.nombre);
-        handleInputChange("materia", tarea.materia);
-        handleInputChange("fecha", tarea.fecha);
-        handleInputChange("prioridad", String(tarea.prioridad));
+        const user = route.params;
+        handleInputChange("id_user",user.id_user);
+        handleInputChange("username",user.username);
+        handleInputChange("email",user.email);
+        handleInputChange("image",user.image);
+        handleInputChange("update",user.update);
     },[]);
+
+    useEffect(() => {
+      imagen64 && handleInputChange("image", imagen64);
+    }, [imagen64]);
 
     return(
         <View
@@ -28,11 +34,11 @@ export const FormScreen = ( { navigation, route } :Props ) => {
             <Text
                 style={ appTheme.title }
             >
-                Formulario de tareas
+                Formulario de usuarios
             </Text>
-            { ( state.id_tarea != 0 ) && (
+            { ( state.id_user !== 0 ) && (
                 <BtnTouch
-                    titulo='Borrar Tarea'
+                    titulo='Borrar Usuario'
                     color='red'
                     action={() => {
                         handleDelete();
@@ -53,13 +59,13 @@ export const FormScreen = ( { navigation, route } :Props ) => {
                         marginTop: 20
                     }}
                 >
-                    Nombre Tarea
+                    Nombre del usuario
                 </Text>
                 <TextInput
                     style={ appTheme.textInput }
-                    placeholder='Nombre de la tarea'
-                    value={ state.nombre }
-                    onChangeText={ (value) => handleInputChange("nombre",value) }
+                    placeholder='Nombre del usuario'
+                    value={ state.username }
+                    onChangeText={ (value) => handleInputChange("username",value) }
                 />
                 <Text
                     style={{
@@ -71,13 +77,14 @@ export const FormScreen = ( { navigation, route } :Props ) => {
                         marginTop: 5
                     }}
                 >
-                    Fecha Tarea
+                    Contraseña del usuario
                 </Text>
                 <TextInput
                     style={ appTheme.textInput }
-                    placeholder='Fecha de la tarea'
-                    value={ state.fecha }
-                    onChangeText={ (value) => handleInputChange("fecha",value) }
+                    placeholder={ (state.id_user === 0) ? "Ingresar contraseña" : "Actualizar contraseña" }
+                    value={ state.password }
+                    onChangeText={ (value) => handleInputChange("password",value) }
+                    secureTextEntry={ true }
                 />
                 <Text
                     style={{
@@ -89,34 +96,32 @@ export const FormScreen = ( { navigation, route } :Props ) => {
                         marginTop: 5
                     }}
                 >
-                    Materia
+                    Correo electrónico
                 </Text>
                 <TextInput
                     style={ appTheme.textInput }
-                    placeholder='Materia de la Tarea'
-                    value={ state.materia }
-                    onChangeText={ (value) => handleInputChange("materia",value) }
-                />
-                <Text
-                    style={{
-                        ...appTheme.title,
-                        fontSize: 18,
-                        textAlign: "left",
-                        alignSelf: "flex-start",
-                        marginHorizontal: 5,
-                        marginTop: 5
-                    }}
-                >
-                    Prioridad
-                </Text>
-                <TextInput
-                    style={ appTheme.textInput }
-                    placeholder='Prioridad de la Tarea'
-                    value={ String( state.prioridad )}
-                    onChangeText={ (value) => handleInputChange("prioridad",value) }
+                    placeholder='Correo'
+                    value={ state.email }
+                    onChangeText={ (value) => handleInputChange("email",value) }
+                    keyboardType="email-address"
                 />
                 <BtnTouch
-                    titulo='Guardar tarea'
+                    titulo='Seleccionar imagen'
+                    color='#27EBF5'
+                    action={ () => pickImage() }
+                />
+                { ( state.image ) && (
+                    <Image
+                        style={{
+                            ...appTheme.avatar,
+                            height: 200,
+                            width: 200,
+                        }}
+                        source={{ uri: `data:image/jpeg;base64,${state.image}` }} 
+                    />)
+                }
+                <BtnTouch
+                    titulo={ (state.id_user !== 0) ? "Actualizar usuario" : "Crear usuario" }
                     color='violet'
                     action={ () => {
                         handleSubmit();
@@ -130,5 +135,5 @@ export const FormScreen = ( { navigation, route } :Props ) => {
                 />
             </View>
         </View>
-    );
+    )
 }

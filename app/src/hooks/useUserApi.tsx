@@ -1,57 +1,57 @@
 import { useEffect, useState } from "react";
 import { pandorApi } from "../api/pandoraApi";
 import { UserResponse } from "../interfaces/userInterfaces";
-import { FormUserData } from "./useUserForm";
+import { FormUserData } from "./useFormUser";
 
 interface UseUserApi{
     isLoading:  boolean;
     listUser:   UserResponse;
-    loadUser:   () => void;
-    createUser: (data : FormUserData) => void;
-    updateUser: (data : FormUserData) => void;
-    deleteUser: (data : FormUserData) => void;
+    loadUsers:  () => void;
+    createUser: (data: FormUserData) => void;
+    updateUser: (data: FormUserData) => void;
+    deleteUser: (data: FormUserData) => void;
 }
 
 export const useUserApi = (): UseUserApi => {
 
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ listUser, setListUser ] = useState<UserResponse>({} as UserResponse);
-    const apiUrl = "http://10.172.189.74:3000/api/dsm43/usuarios"
+    const urlApi = "http://192.168.34.193:3000/api/dsm44/usuarios";
 
-    const loadUser = async () => {
+    const loadUsers = async () => {
         setIsLoading(true);
-        const response = await pandorApi.get<UserResponse>(apiUrl);
-        setListUser(response.data);
+        const response = await pandorApi.get<UserResponse>( urlApi );
+        setListUser( response.data );
         setIsLoading(false);
     }
 
-    useEffect(() => {
-        loadUser();
+    useEffect(()=> {
+        loadUsers();
     },[]);
 
     const createUser = async ( data: FormUserData ) => {
         const dataBody = {
-            username: data.username,
-            image: data.image,
-            password: data.password,
-            email: data.email,
+            username:       data.username,
+            password:       data.password,
+            email:          data.email,
+            image:          data.image,
         } 
-        await pandorApi.post(apiUrl, dataBody);
+        await pandorApi.post(urlApi, dataBody);
     }
 
-    const updateUser = async ( data: FormUserData ) => {
+    const updateUser = async (data: FormUserData) => {
         const dataBody = {
             username: data.username,
-            image: data.image,
-            password: data.password,
             email: data.email,
-        } 
-        await pandorApi.patch(apiUrl + `/${data.id_user}`, dataBody);
-    }
+            image: data.image,
+            ...(data.password && { password: data.password }),
+        }
+        await pandorApi.patch(`${urlApi}/${data.id_user}`, dataBody);
+    };
 
     const deleteUser = async ( data: FormUserData ) => {
-        await pandorApi.delete(apiUrl + `/${data.id_user}`);
+        await pandorApi.delete(urlApi + `/${data.id_user}`);
     }
 
-    return { isLoading, listUser, loadUser, createUser, updateUser, deleteUser };
+    return { isLoading, listUser, loadUsers, createUser, updateUser, deleteUser };
 }

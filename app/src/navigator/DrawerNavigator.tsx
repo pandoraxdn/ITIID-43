@@ -1,68 +1,65 @@
-import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useWindowDimensions } from "react-native";
 import { StackNav } from "./StackNav";
-import { TareaNavigator } from "./TareaNavigator";
 import { PokemonNavigator } from "./PokemonNavigator";
+import { TareaNavigator } from "./TareaNavigator";
+import { useWindowDimensions } from "react-native";
 import { DrawerMenu } from "../components/DrawerMenu";
-import { ImagePicker } from "../screens/ImagePicker";
+import { ImagePickerScreen } from "../screens/ImagePickerScreen";
 import { UserNavigator } from "./UserNavigator";
 
-export type RootDrawerParams = {
+export type RootDrawerNavigator = {
     StackNav: undefined;
     PokemonNavigator: undefined;
     TareaNavigator: undefined;
-    UserNavigator: undefined;
-    ImagePicker:    undefined;
+    ImagePickerScreen: undefined;
+    UserNavigator:  undefined;
 }
 
 const Navigator = () => {
 
-    const Drawer = createDrawerNavigator<RootDrawerParams>();
+    const Drawer = createDrawerNavigator<RootDrawerNavigator>();
+    const { width } = useWindowDimensions();
 
-    const {width} = useWindowDimensions();
-
-    return (
+    return( 
         <Drawer.Navigator
-            initialRouteName="StackNav"
+            initialRouteName="PokemonNavigator"
             screenOptions={{
-                //headerShown: false,
+                headerShown: true,
                 drawerType: width >= 768 ? "permanent" : "front",
                 drawerPosition: "right",
-                //overlayColor: "black",
                 drawerStyle: {
-                    backgroundColor: "rgba(238,130,238,0.8)",
+                    backgroundColor: "white",
                     width: width * 0.7
                 }
             }}
             drawerContent={ (props) => <DrawerMenu {...props}/> }
         >
             <Drawer.Screen
-               name="StackNav" 
+                name="StackNav"
                 component={StackNav}
             />
             <Drawer.Screen
-               name="PokemonNavigator" 
+                name="PokemonNavigator"
                 component={PokemonNavigator}
             />
             <Drawer.Screen
-               name="TareaNavigator" 
+                name="TareaNavigator"
                 component={TareaNavigator}
             />
             <Drawer.Screen
-               name="UserNavigator" 
-                component={UserNavigator}
+                name="ImagePickerScreen"
+                component={ImagePickerScreen}
             />
             <Drawer.Screen
-               name="ImagePicker" 
-                component={ImagePicker}
+                name="UserNavigator"
+                component={UserNavigator}
             />
         </Drawer.Navigator>
     );
 }
 
 export const DrawerNavigator = () => {
-    return(
+    return (
         <Navigator/>
     );
 }

@@ -32,11 +32,11 @@ export const appTheme = StyleSheet.create({
         color: "black"
     },
     avatar: {
-        height: 200,
-        width: 200,
+        height: 100,
+        width: 100,
         borderRadius: 100,
-        borderWidth: 10,
-        borderColor: "white"
+        borderWidth: 5,
+        borderColor: "violet"
     },
     menuContainer:{
         alignItems: "center",
@@ -47,13 +47,13 @@ export const appTheme = StyleSheet.create({
         marginVertical: 10,
         borderWidth: 2,
         borderRadius: 10,
-        width: 250,
+        width: 180,
         justifyContent: "center",
-        borderColor: "white"
+        borderColor: "violet"
     },
     textBtn:{
-        fontSize: 25,
-        color: "white",
+        fontSize: 20,
+        color: "black",
         fontWeight: "bold",
         textAlign: "center",
     }

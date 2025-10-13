@@ -9,16 +9,23 @@ export interface FormData{
     prioridad:  number;
 }
 
-export const useTareaForm = () => {
+export interface UseTareaForm{
+    state:              FormData;
+    handleInputChange:  ( fieldName: keyof FormData, value: string | number ) => void;
+    handleSubmit:       () => void;
+    handleDelete:       () => void;
+}
 
-    const { createTarea, updateTarea, deleteTarea } = useTareaApi();
+export const useTareaForm = (): UseTareaForm => {
+
+    const { createTarea, updateTarea, deleteTarea  } = useTareaApi();
 
     const initialForm: FormData = {
-        id_tarea:   0,
-        nombre:     "",
-        materia:    "",
-        fecha:      "",
-        prioridad:   0
+        "id_tarea":   0,
+        "nombre":     "",
+        "materia":    "",
+        "fecha":      "",
+        "prioridad":  0
     }
 
     type Action = { type: "handleInputChange", payload: { fieldName: keyof FormData, value: string | number } };
@@ -28,21 +35,21 @@ export const useTareaForm = () => {
             case "handleInputChange":
                 return {
                     ...state,
-                    [ action.payload.fieldName ] : action.payload.value
+                    [action.payload.fieldName] : action.payload.value
                 }
         }
     }
 
-    const [ state, dispatch ] = useReducer( formReducer, initialForm );
+    const [ state, dispatch ] = useReducer(formReducer, initialForm);
 
     const handleInputChange = ( fieldName: keyof FormData, value: string | number ) => {
-        dispatch({ type: "handleInputChange", payload: { fieldName, value }});
+        dispatch({ type: "handleInputChange", payload: { fieldName, value } });
     }
 
-    const handleSubmit = () => ( state.id_tarea == 0 ) ? createTarea( state ) : updateTarea( state );
+    const handleSubmit = () => ( state.id_tarea == 0 ) ? createTarea(state) : updateTarea(state);
 
-    const handleDelete = () =>deleteTarea( state );
+    const handleDelete = () => deleteTarea(state);
 
     return { state, handleInputChange, handleSubmit, handleDelete };
-   
+
 }

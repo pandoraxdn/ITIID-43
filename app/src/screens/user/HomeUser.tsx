@@ -2,29 +2,30 @@ import React, {useEffect} from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { appTheme } from '../../themes/appTheme';
-import { useTareaApi } from '../../hooks/useTareaApi';
-import { TareaCard } from '../../components/TareaCard';
-import { TareaResponse } from '../../interfaces/tareasInterfaces';
+import { useUserApi } from '../../hooks/useUserApi';
+import { UserCard } from '../../components/UserCard';
+import { UserResponse } from '../../interfaces/userInterfaces';
 import { BtnTouch } from '../../components/BtnTouch';
 
-export const HomeTarea = () => {
+export const HomeUser = () => {
 
-    const { isLoading, loadTarea, listTarea } = useTareaApi();
+    const { isLoading, loadUsers, listUser } = useUserApi();
 
     const focused = useIsFocused();
 
     const navigation = useNavigation();
 
-    const create: TareaResponse = {
-        id_tarea:   0,
-        nombre:     "",
-        materia:    "",
-        fecha:      "",
-        prioridad:  0
+    const create: UserResponse  = {
+        id_user:        0,
+        username:       "",
+        password:       "",
+        email:          "",
+        image:          "",
+        update:         "",
     }
 
     useEffect(() => {
-        (!isLoading) && loadTarea();
+        (!isLoading) && loadUsers();
     },[focused])
 
     return(
@@ -32,8 +33,8 @@ export const HomeTarea = () => {
             style={ appTheme.marginGlobal }
         >
             <FlatList
-                data={ Object.values(listTarea) }
-                keyExtractor={ (item) => "#"+item.id_tarea }
+                data={ Object.values(listUser) }
+                keyExtractor={ (item) => "#"+item.id_user }
                 ListHeaderComponent={(
                     <View
                         style={ appTheme.container }
@@ -41,31 +42,32 @@ export const HomeTarea = () => {
                         <Text
                             style={ appTheme.title }
                         >
-                            Lista de Tareas
+                            Lista de Usuarios
                         </Text>
                         <BtnTouch
                             titulo='Crear tarea'
                             color='blue'
-                            action={ () => navigation.navigate("FormScreen",{...create}) }
+                            action={ () => navigation.navigate("FormUser",{...create}) }
                         />
                     </View>
                 )}
                 refreshControl={(
                     <RefreshControl
-                        refreshing={isLoading}
-                        onRefresh={ loadTarea }
+                        refreshing={ isLoading }
+                        onRefresh={ loadUsers }
                         colors={[ "pink", "violet", "black" ]}
                         progressBackgroundColor="black"
                     />
                 )}
-                showsVerticalScrollIndicator={false}
-                numColumns={2}
+                showsVerticalScrollIndicator={ false }
+                numColumns={ 2 }
                 renderItem={ ({item}) => (
-                    <TareaCard
-                        tarea={ item }
+                    <UserCard
+                        user={ item }
                     />
                 )}
             />
         </View>
-    )
+    );
 }
+

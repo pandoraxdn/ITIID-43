@@ -1,19 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import { TareaResponse } from '../interfaces/tareasInterfaces';
+import { UserResponse } from '../interfaces/userInterfaces';
 
 interface Props {
-    tarea: TareaResponse;
+    user: UserResponse;
 }
 
-export const TareaCard = ( {tarea} : Props) => {
+export const UserCard = ( { user } : Props) => {
 
     const navigation = useNavigation();
 
     return(
         <TouchableOpacity
-            onPress={ () => navigation.navigate("FormScreen",{...tarea}) }
+            onPress={ () => navigation.navigate("FormUser",{...user}) }
         >
             <View
                 style={ style.cardContainer }
@@ -21,25 +21,38 @@ export const TareaCard = ( {tarea} : Props) => {
                 <Text
                     style={ style.title }
                 >
-                    { `Título: \n${tarea.nombre}\n` }
+                    { `Usuario: \n${user.username}\n` }
                 </Text>
                 <Text
-                    style={ style.title }
+                    style={ style.content }
                 >
-                    { `Materia: \n${tarea.materia}\n` }
-                    { `Fecha: \n${tarea.fecha}\n` }
-                    { `Prioridad: \n${tarea.prioridad}\n` }
+                    { `Correo: \n${user.email}\n` }
+                    { `Última actualización: \n${user.update}\n` }
                 </Text>
+                <Image
+                    style={ style.avatar }
+                    source={{ uri: `data:image/jpeg;base64,${user.image}` }} 
+                />
             </View>
         </TouchableOpacity>
     );
 }
 
 const style = StyleSheet.create({
+    avatar: {
+        top: -10,
+        right:-10,
+        height: 70,
+        width: 70,
+        borderRadius: 100,
+        borderWidth: 2,
+        borderColor: "white",
+        position: "absolute"
+    },
     cardContainer: {
         marginHorizontal: 10,
-        height: 200,
-        width: 120,
+        height: 120,
+        width: 180,
         marginBottom: 25,
         borderRadius: 20,
         overflow: "hidden",
@@ -58,7 +71,7 @@ const style = StyleSheet.create({
     content:{
         marginTop: 10,
         color: "white",
-        fontSize: 8,
+        fontSize: 11,
         textAlign: "center"
     },
 });

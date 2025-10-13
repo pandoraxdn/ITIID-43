@@ -5,56 +5,53 @@ import { FormData } from "./useTareaForm";
 
 interface UseTareaApi{
     isLoading:      boolean;
-    listTareas:     TareaResponse;
-    loadTareas:     () => void;
-    createTarea:    ( data: FormData ) => void;
-    updateTarea:    ( data: FormData ) => void;
-    deleteTarea:    ( data: FormData ) => void;
+    listTarea:      TareaResponse;
+    loadTarea:      () => void;
+    createTarea:    (data: FormData) => void;
+    updateTarea:    (data: FormData) => void;
+    deleteTarea:    (data: FormData) => void;
 }
 
 export const useTareaApi = (): UseTareaApi => {
-    const [ isLoading, setIsLoading ] = useState<boolean>(false);
-    const [ listTareas, setListTareas ] = useState<TareaResponse>({} as TareaResponse);
+    const [ isLoading, setIsLoading ] = useState<boolean>( false );
+    const [ listTarea, setListTarea ] = useState<TareaResponse>({} as TareaResponse);
 
-    const apiUrl = "http://192.168.1.101:3000/api/dsm43/tarea";
+    const apiUrl: string = "http://192.168.34.193:3000/api/dsm44/tarea";
 
-    const loadTareas = async () => {
-        setIsLoading(true);
-        const response = await pandorApi.get<TareaResponse>(apiUrl);
-        setListTareas( response.data );
-        setIsLoading(false);
+    const loadTarea = async () => {
+        setIsLoading( true );
+        const reponse = await pandorApi.get<TareaResponse>( apiUrl );
+        setListTarea( reponse.data );
+        setIsLoading( false );
     }
 
-    useEffect( () => {
-        loadTareas();
+    useEffect(() => {
+        loadTarea();
     },[]);
 
     const createTarea = async ( data: FormData ) => {
         const dataBody = {
-            "nombre":       data.nombre,
-            "materia":      data.materia,    
-            "fecha":        data.fecha,
-            "prioridad":    Number(data.prioridad),
+            "nombre": data.nombre,
+            "materia": data.materia,
+            "fecha": data.fecha,
+            "prioridad": Number( data.prioridad ),
         }
-
-        await pandorApi.post(apiUrl, dataBody);
+        await pandorApi.post( apiUrl, dataBody );
     }
-
 
     const updateTarea = async ( data: FormData ) => {
         const dataBody = {
-            "nombre":   data.nombre,
-            "materia":  data.materia,    
-            "fecha":    data.fecha,
+            "nombre": data.nombre,
+            "materia": data.materia,
+            "fecha": data.fecha,
             "prioridad": Number( data.prioridad ),
         }
-
-        await pandorApi.patch(apiUrl + `/${data.id_tarea}`, dataBody);
+        await pandorApi.patch( apiUrl + `/${data.id_tarea}`, dataBody );
     }
 
     const deleteTarea = async ( data: FormData ) => {
-        await pandorApi.delete(apiUrl + `/${data.id_tarea}`);
+        await pandorApi.delete( apiUrl + `/${data.id_tarea}`);
     }
 
-    return { isLoading, listTareas, loadTareas, createTarea, updateTarea, deleteTarea };
+    return { isLoading, listTarea, loadTarea, createTarea, updateTarea, deleteTarea };
 }

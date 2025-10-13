@@ -1,6 +1,8 @@
 import React from 'react';
 //import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { DrawerNavigator } from './src/navigator/DrawerNavigator';
+//import { TareaNavigator } from './src/navigator/TareaNavigator';
 //import { PokemonNavigator } from './src/navigator/PokemonNavigator';
 //import { StackNav } from './src/navigator/StackNav';
 //import { PrimerScreen } from './src/screens/PrimerScreen';
@@ -12,9 +14,6 @@ import { NavigationContainer } from '@react-navigation/native';
 //import { MiPrimerScreen } from './src/screens/MiPrimerScreen-maestro';
 //import { MiPrimerDiseno } from './src/screens/MiPrimerDiseno-maestro';
 //import { MiPrimerContador } from './src/screens/MiPrimerContador-maestro';
-//import { FormScreen } from './src/screens/FormScreen';
-//import { TareaNavigator } from './src/navigator/TareaNavigator';
-import { DrawerNavigator } from './src/navigator/DrawerNavigator';
 
 const App = () => {
 

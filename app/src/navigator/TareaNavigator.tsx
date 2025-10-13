@@ -4,8 +4,8 @@ import { HomeTarea } from "../screens/tarea/HomeTarea";
 import { TareaResponse } from "../interfaces/tareasInterfaces";
 
 export type RootStackParams = {
-    FormScreen:     TareaResponse;
-    HomeTarea:      undefined;
+    HomeTarea:  undefined;
+    FormScreen: TareaResponse;
 }
 
 export const TareaNavigator = () => {
@@ -21,12 +21,12 @@ export const TareaNavigator = () => {
             }}
         >
             <Stack.Screen
-                name="FormScreen"
-                component={ FormScreen }
-            />
-            <Stack.Screen
                 name="HomeTarea"
                 component={ HomeTarea }
+            />
+            <Stack.Screen
+                name="FormScreen"
+                component={ FormScreen }
             />
         </Stack.Navigator>
     );

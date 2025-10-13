@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { FormUser } from "../screens/users/FormUser";
-import { HomeUser } from "../screens/users/HomeUser";
+import { HomeUser } from "../screens/user/HomeUser";
+import { FormUser } from "../screens/user/FormUser";
 import { UserResponse } from "../interfaces/userInterfaces";
 
 export type RootStackParams = {
-    FormUser:     UserResponse;
-    HomeUser:     undefined;
+    HomeUser:   undefined;
+    FormUser:   UserResponse;
 }
 
 export const UserNavigator = () => {
@@ -21,12 +21,12 @@ export const UserNavigator = () => {
             }}
         >
             <Stack.Screen
-                name="FormUser"
-                component={ FormUser }
-            />
-            <Stack.Screen
                 name="HomeUser"
                 component={ HomeUser }
+            />
+            <Stack.Screen
+                name="FormUser"
+                component={ FormUser }
             />
         </Stack.Navigator>
     );

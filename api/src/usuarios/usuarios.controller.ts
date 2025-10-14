@@ -19,34 +19,34 @@ export class UsuariosController {
       private readonly usuariosService: UsuariosService
   ) {}
 
-  @Post("login")
-  login( @Body( new ValidationPipe ) updateUsuarioDto: UpdateUsuarioDto ){
-      return this.login(updateUsuarioDto);
+  @Post('login')
+  async login( @Body( new ValidationPipe() ) updateUsuarioDto: UpdateUsuarioDto ){
+      return await this.usuariosService.login(updateUsuarioDto);
   }
 
   @Post()
-  create(@Body( new ValidationPipe ) createUsuarioDto: CreateUsuarioDto) {
-    return this.usuariosService.create(createUsuarioDto);
+  async create(@Body( new ValidationPipe ) createUsuarioDto: CreateUsuarioDto) {
+    return await this.usuariosService.create(createUsuarioDto);
   }
 
   @Get()
-  findAll() {
-    return this.usuariosService.findAll();
+  async findAll() {
+    return await this.usuariosService.findAll();
   }
 
   @Get(':id_user')
-  findOne(@Param('id_user') id_user: number) {
-    return this.usuariosService.findOne(id_user);
+  async findOne(@Param('id_user') id_user: number) {
+    return await this.usuariosService.findOne(id_user);
   }
 
   @Patch(':id_user')
-  update(@Param('id_user') id_user: number, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuariosService.update(id_user, updateUsuarioDto);
+  async update(@Param('id_user') id_user: number, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+    return await this.usuariosService.update(id_user, updateUsuarioDto);
   }
 
   @Delete(':id_user')
-  remove(@Param('id_user') id_user: number) {
-    return this.usuariosService.remove(id_user);
+  async remove(@Param('id_user') id_user: number) {
+    return await this.usuariosService.remove(id_user);
   }
 
 }

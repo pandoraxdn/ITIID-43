@@ -85,6 +85,8 @@ export const FormUser = ( { navigation, route } :Props ) => {
                     value={ state.password }
                     onChangeText={ (value) => handleInputChange("password",value) }
                     secureTextEntry={ true }
+                    keyboardType="number-pad"
+                    keyboardAppearance="dark"
                 />
                 <Text
                     style={{
@@ -107,7 +109,7 @@ export const FormUser = ( { navigation, route } :Props ) => {
                 />
                 <BtnTouch
                     titulo='Seleccionar imagen'
-                    color='#27EBF5'
+                    color='pink'
                     action={ () => pickImage() }
                 />
                 { ( state.image ) && (

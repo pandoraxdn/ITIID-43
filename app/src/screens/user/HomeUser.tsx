@@ -45,8 +45,8 @@ export const HomeUser = () => {
                             Lista de Usuarios
                         </Text>
                         <BtnTouch
-                            titulo='Crear tarea'
-                            color='blue'
+                            titulo='Crear Usuario'
+                            color='violet'
                             action={ () => navigation.navigate("FormUser",{...create}) }
                         />
                     </View>

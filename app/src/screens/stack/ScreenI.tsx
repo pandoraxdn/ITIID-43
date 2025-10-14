@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RootStackParams } from '../../navigator/StackNav';
 import { StackScreenProps } from '@react-navigation/stack';
 import { BtnTouch } from '../../components/BtnTouch';
 import { Fab } from '../../components/Fab';
+import { AuthContext } from '../../context/AuthContext';
 
 interface Props extends StackScreenProps<RootStackParams,"ScreenI">{};
 
@@ -14,6 +15,8 @@ interface User{
 }
 
 export const ScreenI = ( { navigation } : Props ) => {
+
+    const { singIn, logout, authState, changeUsername } = useContext(AuthContext);
     
     const usuario: User = {
         username:   "Chucho Ivan",
@@ -34,6 +37,19 @@ export const ScreenI = ( { navigation } : Props ) => {
             <Text>
                 ScreenI
             </Text>
+            <BtnTouch
+                titulo={ (authState.isLoggedIn) ? "Cerrar sesión" : "Iniciar sesión" }
+                color={ (authState.isLoggedIn) ? "red" : "black" }
+                action={ () => (authState.isLoggedIn) ? logout() : singIn() }
+            />
+            {
+                (authState.isLoggedIn) && 
+                <BtnTouch
+                    titulo="Cambiar usuario"
+                    color="blue"
+                    action={ () => changeUsername("Edith") }
+                />
+            }
             <Fab
                 titulo='->'
                 position="button_right"

@@ -6,6 +6,7 @@ import { useWindowDimensions } from "react-native";
 import { DrawerMenu } from "../components/DrawerMenu";
 import { ImagePickerScreen } from "../screens/ImagePickerScreen";
 import { UserNavigator } from "./UserNavigator";
+import { ConfigurationScreen } from "../screens/ConfigurationScreen";
 
 export type RootDrawerNavigator = {
     StackNav: undefined;
@@ -13,6 +14,7 @@ export type RootDrawerNavigator = {
     TareaNavigator: undefined;
     ImagePickerScreen: undefined;
     UserNavigator:  undefined;
+    ConfigurationScreen:  undefined;
 }
 
 const Navigator = () => {
@@ -28,7 +30,7 @@ const Navigator = () => {
                 drawerType: width >= 768 ? "permanent" : "front",
                 drawerPosition: "right",
                 drawerStyle: {
-                    backgroundColor: "white",
+                    backgroundColor: "rgba(255,72,208,0.3)",
                     width: width * 0.7
                 }
             }}
@@ -53,6 +55,10 @@ const Navigator = () => {
             <Drawer.Screen
                 name="UserNavigator"
                 component={UserNavigator}
+            />
+            <Drawer.Screen
+                name="ConfigurationScreen"
+                component={ConfigurationScreen}
             />
         </Drawer.Navigator>
     );

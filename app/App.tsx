@@ -1,5 +1,5 @@
-import React from 'react';
-//import { View } from 'react-native';
+import React, { ReactNode } from 'react';
+import { AuthProvider } from './src/context/AuthContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { DrawerNavigator } from './src/navigator/DrawerNavigator';
 //import { TareaNavigator } from './src/navigator/TareaNavigator';
@@ -15,11 +15,20 @@ import { DrawerNavigator } from './src/navigator/DrawerNavigator';
 //import { MiPrimerDiseno } from './src/screens/MiPrimerDiseno-maestro';
 //import { MiPrimerContador } from './src/screens/MiPrimerContador-maestro';
 
-const App = () => {
+const AppState = ( { children }: { children : ReactNode } ) => {
+    return(
+        <AuthProvider>
+            { children }
+        </AuthProvider>
+    );
+}
 
+const App = () => {
     return(
         <NavigationContainer>
-            <DrawerNavigator/>
+            <AppState>
+                <DrawerNavigator/>
+            </AppState>
         </NavigationContainer>
     );
 }

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { AuthContext } from '../context/AuthContext';
 import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { appTheme } from '../themes/appTheme';
 
 export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
 
     const assets: string = "./../../assets";
+
+    const { authState } = useContext( AuthContext );
 
     return(
         <DrawerContentScrollView>
@@ -17,7 +20,7 @@ export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
             >
                 <Image
                     style={appTheme.avatar}
-                    source={ require(assets + "/capi.jpg") }
+                    source= { (!authState.isLoggedIn && authState.favoriteImage != "") ? require(assets+"/capi.jpg") : { uri: `data:image/jpeg;base64,${authState.favoriteImage}` } }
                 />
                 <View>
                     <Text
@@ -26,7 +29,7 @@ export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
                             marginTop: 10
                         }}
                     >
-                        Username: Capibara
+                        Username: { (authState.isLoggedIn) ? authState.username : "Capibara" }
                     </Text>
                 </View>
                 <View
@@ -94,6 +97,19 @@ export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
                                 style={appTheme.textBtn}
                             >
                                 Crud Usuarios
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={ () => navigation.navigate("ConfigurationScreen") }
+                    >
+                        <View
+                            style={appTheme.menuBtn}
+                        >
+                            <Text
+                                style={appTheme.textBtn}
+                            >
+                                Confguración
                             </Text>
                         </View>
                     </TouchableOpacity>

@@ -32,8 +32,8 @@ export const appTheme = StyleSheet.create({
         color: "black"
     },
     avatar: {
-        height: 100,
-        width: 100,
+        height: 140,
+        width: 140,
         borderRadius: 100,
         borderWidth: 5,
         borderColor: "violet"

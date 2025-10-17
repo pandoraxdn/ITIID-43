@@ -6,3 +6,5 @@ export interface UserResponse {
     image:    string;
     update:   string;
 }
+
+export type RequestLogin = UserResponse | false;

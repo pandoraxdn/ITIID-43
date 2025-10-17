@@ -53,8 +53,9 @@ export const appTheme = StyleSheet.create({
     },
     textBtn:{
         fontSize: 20,
-        color: "black",
+        color: "purple",
         fontWeight: "bold",
         textAlign: "center",
+        backgroundColor: "white"
     }
 });

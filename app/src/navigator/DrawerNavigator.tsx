@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { StackNav } from "./StackNav";
 import { PokemonNavigator } from "./PokemonNavigator";
@@ -7,6 +9,8 @@ import { DrawerMenu } from "../components/DrawerMenu";
 import { ImagePickerScreen } from "../screens/ImagePickerScreen";
 import { UserNavigator } from "./UserNavigator";
 import { ConfigurationScreen } from "../screens/ConfigurationScreen";
+//import { LoginScreen } from "../screens/user/LoginScreen";
+import { LoginScreenII } from "../screens/user/LoginScreenII";
 
 export type RootDrawerNavigator = {
     StackNav: undefined;
@@ -65,7 +69,6 @@ const Navigator = () => {
 }
 
 export const DrawerNavigator = () => {
-    return (
-        <Navigator/>
-    );
+    const { authState } = useContext( AuthContext );
+    return ( authState.isLoggedIn ) ? <Navigator/> : <LoginScreenII/>;
 }

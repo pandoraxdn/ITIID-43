@@ -3,12 +3,13 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { appTheme } from '../themes/appTheme';
+import { BtnTouch } from './BtnTouch';
 
 export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
 
     const assets: string = "./../../assets";
 
-    const { authState } = useContext( AuthContext );
+    const { authState, logout } = useContext( AuthContext );
 
     return(
         <DrawerContentScrollView>
@@ -26,11 +27,19 @@ export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
                     <Text
                         style={{
                             ...appTheme.title,
-                            marginTop: 10
+                            marginTop: 10,
+                            color: "white"
                         }}
                     >
                         Username: { (authState.isLoggedIn) ? authState.username : "Capibara" }
                     </Text>
+                </View>
+                <View>
+                    <BtnTouch
+                        titulo='Cerrar sesión'
+                        action={ () => logout() }
+                        color='gray'
+                    />
                 </View>
                 <View
                     style={appTheme.menuContainer}

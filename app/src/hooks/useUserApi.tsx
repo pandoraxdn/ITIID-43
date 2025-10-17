@@ -16,7 +16,7 @@ export const useUserApi = (): UseUserApi => {
 
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ listUser, setListUser ] = useState<UserResponse>({} as UserResponse);
-    const urlApi = "http://192.168.1.101:3000/api/dsm43/usuarios";
+    const urlApi = "http://192.168.1.24:3000/api/dsm44/usuarios";
 
     const loadUsers = async () => {
         setIsLoading(true);

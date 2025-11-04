@@ -6,9 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Tarea } from './tareas/entities/tarea.entity';
 import { Usuario } from './usuarios/entities/usuario.entity';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { SensorModule } from './sensor/sensor.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    MongooseModule.forRoot("mongodb://localhost:27017/DSM43"),
     TypeOrmModule.forRoot({
         type: "mariadb",
         host: "localhost",
@@ -32,7 +35,8 @@ import { UsuariosModule } from './usuarios/usuarios.module';
         autoLoadEntities: true,
     }),
     TareaModule,
-    UsuariosModule
+    UsuariosModule,
+    SensorModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query, Req } from '@nestjs/common';
 import { SensorService } from './sensor.service';
 import { CreateSensorDto } from './dto/create-sensor.dto';
 import { UpdateSensorDto } from './dto/update-sensor.dto';
+import * as express from "express";
 
 @Controller('sensor')
 export class SensorController {
@@ -9,6 +10,17 @@ export class SensorController {
     constructor(
         private readonly sensorService: SensorService
     ) {}
+
+    @Get("paginate")
+    paginate(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 100,
+        @Req() req: express.Request
+    ) {
+        const baseUrl = `${req.protocol}://${req.host}${req.baseUrl}/api/dsm43/sensor/paginate`;
+
+        return this.sensorService.paginate(page, limit, baseUrl);
+    }
 
     @Post()
     create(@Body( new ValidationPipe() ) data: CreateSensorDto) {

@@ -11,6 +11,7 @@ import { UserNavigator } from "./UserNavigator";
 import { ConfigurationScreen } from "../screens/ConfigurationScreen";
 import { LoginScreen } from "../screens/user/LoginScreen";
 import { GraficosScreen } from "../screens/char/GraficosScreen";
+import { SensorData } from "../screens/char/SensorData";
 //import { LoginScreenII } from "../screens/user/LoginScreenII";
 
 
@@ -22,6 +23,7 @@ export type RootDrawerNavigator = {
     UserNavigator:          undefined;
     ConfigurationScreen:    undefined;
     GraficosScreen:         undefined;
+    SensorData:             undefined;
 }
 
 const Navigator = () => {
@@ -70,6 +72,10 @@ const Navigator = () => {
             <Drawer.Screen
                 name="GraficosScreen"
                 component={GraficosScreen}
+            />
+            <Drawer.Screen
+                name="SensorData"
+                component={SensorData}
             />
         </Drawer.Navigator>
     );

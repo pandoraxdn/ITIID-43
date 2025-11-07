@@ -12,6 +12,41 @@ export class SensorService {
         @InjectModel( Sensor.name ) private sensorModel : Model<Sensor>
     ){}
 
+    async paginate( page: number = 1, limit = 100, baseUrl: string ){
+
+        const skip = ( page - 1 ) * limit;
+
+        const [ data, total ] = await Promise.all([
+            this.sensorModel
+                .find()
+                .sort(  { fecha: - 1 }  )
+                .skip( skip )
+                .limit( limit )
+                .exec(),
+            this.sensorModel.countDocuments().exec(),
+        ]);
+
+        const totalPages = Math.ceil( total/limit );
+
+        const next = (page < totalPages)
+            ? `${baseUrl}?page=${Number(page) + 1}&limit=${limit}`
+            : null;
+
+        const prev = (page > 1)
+            ? `${baseUrl}?page=${Number(page) - 1}&limit=${limit}`
+            : null;
+
+        return {
+            total,
+            totalPages,
+            links: {
+                prev,
+                next
+            },
+            data
+        }
+    }
+
     async create(data: CreateSensorDto) {
         const sensor_created = new this.sensorModel( data );
         return await sensor_created.save();

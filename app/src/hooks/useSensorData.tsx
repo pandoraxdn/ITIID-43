@@ -1,4 +1,4 @@
-import { SetStateAction, use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { pandorApi } from "../api/pandoraApi";
 import {
     SensorDataResponse,
@@ -27,9 +27,9 @@ export const useSensorData = (): UseSensorData => {
 
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ data, setData ] = useState<SensorDataResponse>({} as SensorDataResponse);
-    const [ today, setToday ] = useState<TypeData>();
-    const [ yesterday, setYesterday ] = useState<TypeData>();
-    const [ beforeYesterday, setBeforeYesterday ] = useState<TypeData>();
+    const [ today, setToday ] = useState<TypeData>( {} as TypeData );
+    const [ yesterday, setYesterday ] = useState<TypeData>( {} as TypeData );
+    const [ beforeYesterday, setBeforeYesterday ] = useState<TypeData>( {} as TypeData );
 
     const url: string = "http://10.172.189.74:3000/api/dsm43/sensor/data";
 
@@ -55,8 +55,8 @@ export const useSensorData = (): UseSensorData => {
                         return document.temperatura_c
                     });
                     setToday({
-                        min: data.maxToday,
-                        max: data.minToday,
+                        min: data.minToday,
+                        max: data.maxToday,
                         labels,
                         values
                     });

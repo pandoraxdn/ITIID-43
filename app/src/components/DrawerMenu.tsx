@@ -148,6 +148,19 @@ export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
                             </Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={ () => navigation.navigate("QrScreen") }
+                    >
+                        <View
+                            style={appTheme.menuBtn}
+                        >
+                            <Text
+                                style={appTheme.textBtn}
+                            >
+                                Código QR
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </DrawerContentScrollView>

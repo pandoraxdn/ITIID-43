@@ -8,6 +8,10 @@ import { Usuario } from './usuarios/entities/usuario.entity';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { SensorModule } from './sensor/sensor.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { Empleado } from './empleados/entities/empleado.entity';
+import { RegistroAsistencia } from './empleados/entities/registro-asistencia.entity';
+import { RegistroProduccion } from './empleados/entities/registro-produccion.entity';
+import { EmpleadosModule } from './empleados/empleados.module';
 
 @Module({
   imports: [
@@ -34,9 +38,21 @@ import { MongooseModule } from '@nestjs/mongoose';
         synchronize: true,
         autoLoadEntities: true,
     }),
+    TypeOrmModule.forRoot({
+        type: "postgres",
+        host: "localhost",
+        port: 5432,
+        username: "najimi",
+        password: "pass",
+        database: "empresa",
+        entities: [ RegistroAsistencia, RegistroProduccion, Empleado ],
+        synchronize: true,
+        autoLoadEntities: true,
+    }),
     TareaModule,
     UsuariosModule,
-    SensorModule
+    SensorModule,
+    EmpleadosModule
   ],
   controllers: [AppController],
   providers: [AppService],

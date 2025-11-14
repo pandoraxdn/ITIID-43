@@ -5,8 +5,8 @@ import {
     IsOptional,
     IsEnum,
     IsBoolean,
-    IsDecimal,
-    IsPositive
+    IsPositive,
+    IsNumber
 } from "class-validator";
 import { Type } from "class-transformer";
 import { RegistroAsistencia } from "../entities/registro-asistencia.entity";
@@ -38,7 +38,7 @@ export class CreateEmpleado {
     @IsOptional()
     turno:          Turno;
 
-    @IsDecimal()
+    @IsNumber()
     @IsPositive()
     salarioDiario:  number;
 
@@ -48,9 +48,9 @@ export class CreateEmpleado {
 
     @Type( () => RegistroProduccion )
     @IsOptional()
-    produccion: RegistroProduccion;
+    produccion:     RegistroProduccion;
 
     @Type( () => RegistroAsistencia )
     @IsOptional()
-    asistencia: RegistroAsistencia;
+    asistencia:     RegistroAsistencia;
 }

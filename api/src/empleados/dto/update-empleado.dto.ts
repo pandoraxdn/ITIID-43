@@ -5,7 +5,7 @@ import {
     IsOptional,
     IsEnum,
     IsBoolean,
-    IsDecimal,
+    IsNumber,
     IsPositive
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -41,7 +41,7 @@ export class UpdateEmpleado {
     @IsOptional()
     turno:          Turno;
 
-    @IsDecimal()
+    @IsNumber()
     @IsPositive()
     @IsOptional()
     salarioDiario:  number;

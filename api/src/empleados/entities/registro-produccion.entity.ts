@@ -7,7 +7,7 @@ export class RegistroProduccion{
     @PrimaryGeneratedColumn()
     id_reg_p:           number;
     
-    @ManyToOne( () => Empleado, emp => emp.produccion )
+    @ManyToOne( () => Empleado, (empleado) => empleado.produccion )
     empleado:           Empleado;
 
     @Column({ type: "date" })

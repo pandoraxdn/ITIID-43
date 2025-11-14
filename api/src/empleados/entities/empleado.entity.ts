@@ -9,10 +9,10 @@ export class Empleado {
     @PrimaryGeneratedColumn()
     id_empleado:    number;
 
-    @OneToMany( () => RegistroProduccion, reg_p => reg_p.empleado )
+    @OneToMany( () => RegistroProduccion, (asistencia) => asistencia.empleado )
     produccion: RegistroProduccion;
 
-    @OneToMany( () => RegistroAsistencia, reg_a => reg_a.empleado )
+    @OneToMany( () => RegistroAsistencia, (produccion) => produccion.empleado )
     asistencia: RegistroAsistencia;
 
     @Column()
@@ -30,9 +30,9 @@ export class Empleado {
     @Column({ type: "enum", enum: Turno, default: Turno.MATUTINO })
     turno:          Turno;
 
-    @Column()
+    @Column({ type: 'numeric', nullable: true })
     salarioDiario:  number;
 
-    @Column()
+    @Column({ type: 'boolean', default: true })
     activo:         boolean;
 }

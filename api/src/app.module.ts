@@ -17,6 +17,7 @@ import { EmpleadosModule } from './empleados/empleados.module';
   imports: [
     MongooseModule.forRoot("mongodb://localhost:27017/DSM43"),
     TypeOrmModule.forRoot({
+        name: "conexion-mariadb",
         type: "mariadb",
         host: "localhost",
         port: 3306,
@@ -28,6 +29,7 @@ import { EmpleadosModule } from './empleados/empleados.module';
         autoLoadEntities: true,
     }),
     TypeOrmModule.forRoot({
+        name: "conexion-postgres",
         type: "postgres",
         host: "localhost",
         port: 5432,
@@ -39,6 +41,7 @@ import { EmpleadosModule } from './empleados/empleados.module';
         autoLoadEntities: true,
     }),
     TypeOrmModule.forRoot({
+        name: "conexion-postgres",
         type: "postgres",
         host: "localhost",
         port: 5432,

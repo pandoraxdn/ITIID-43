@@ -12,7 +12,7 @@ import { RegistroProduccion } from './entities/registro-produccion.entity';
             Empleado,
             RegistroAsistencia,
             RegistroProduccion
-        ])
+        ],"conexion-postgres")
     ],
     controllers: [EmpleadosController],
     providers: [EmpleadosService],

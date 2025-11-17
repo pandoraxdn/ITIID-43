@@ -8,7 +8,7 @@ import { UpdateTarea } from "./dto/update-tarea.dto";
 @Injectable()
 export class TareaService{
     constructor(
-        @InjectRepository( Tarea )
+        @InjectRepository( Tarea, "conexion-mariadb" )
         private tareaRepository: Repository<Tarea>
     ){}
 

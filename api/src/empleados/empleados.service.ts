@@ -6,17 +6,19 @@ import { RegistroAsistencia } from './entities/registro-asistencia.entity';
 import { RegistroProduccion } from './entities/registro-produccion.entity';
 import { CreateEmpleado } from './dto/create-empleado.dto';
 import { UpdateEmpleado } from './dto/update-empleado.dto';
+import { CreateRegistroAsistencia } from './dto/create-registro-asistencia.dto';
+import { CreateRegistroProduccion } from './dto/create-registro-produccion.dto';
 import { Turno } from './enum/turno.enum';
 import { StatusTurno } from './enum/status-turno.enum';
 
 @Injectable()
 export class EmpleadosService {
     constructor(
-        @InjectRepository(Empleado)
+        @InjectRepository(Empleado, "conexion-postgres")
         private readonly repoEmpleado: Repository<Empleado>,
-        @InjectRepository(RegistroAsistencia)
+        @InjectRepository(RegistroAsistencia, "conexion-postgres")
         private readonly repoAsistencia: Repository<RegistroAsistencia>,
-        @InjectRepository(RegistroProduccion)
+        @InjectRepository(RegistroProduccion, "conexion-postgres")
         private readonly repoProduccion: Repository<RegistroProduccion>,
     ){}
 
@@ -27,22 +29,87 @@ export class EmpleadosService {
         [ Turno.MIXTO ]:        { inicio: "12:00", fin: "00:00" },
     }
 
+    async createRegistroAsistencia(data: CreateRegistroAsistencia) {
+        const empleado = await this.findOneEmpleado( data.id_empleado );
+
+        delete data.id_empleado;
+
+        const register = this.repoAsistencia.create({
+            empleado,
+            ...data 
+        });
+
+        return await this.repoAsistencia.save( register );
+    }
+
+    async createRegistroProduccion(data: CreateRegistroProduccion) {
+        const empleado = await this.findOneEmpleado( data.id_empleado );
+
+        delete data.id_empleado;
+
+        const register = this.repoProduccion.create({
+            empleado,
+            ...data 
+        });
+
+        return await this.repoProduccion.save( register );
+    }
+
     async createEmpleado(data: CreateEmpleado) {
         const register = this.repoEmpleado.create( data );
         return await this.repoEmpleado.save( register );
     }
 
-    // Corregir
-    async findAllEmpleado() {
-        return await this.repoEmpleado.find({
-            relations: [ "RegistroProduccion", "RegistroAsistencia" ]
-        });
+    async findAllEmpleado(page: number = 1, limit: number = 10, baseUrl: string) {
+
+        const [data, total] = await this.repoEmpleado
+            .createQueryBuilder("e")
+            .skip( (page - 1) * limit )
+            .take(limit)
+            .orderBy("e.id_empleado", "ASC")
+            .getManyAndCount();
+
+        for (const empleado of data) {
+            empleado.produccion = await this.repoProduccion
+                .createQueryBuilder("p")
+                .where("p.id_empleado = :id", { id: empleado.id_empleado })
+                .orderBy("p.id_reg_p", "DESC")
+                .limit(5)
+                .getMany();
+
+            empleado.asistencia = await this.repoAsistencia
+                .createQueryBuilder("a")
+                .where("a.id_empleado = :id", { id: empleado.id_empleado })
+                .orderBy("a.fecha", "DESC")
+                .limit(5)
+                .getMany();
+        }
+
+        const totalPages = Math.ceil( total/limit );
+
+        const next = (page < totalPages)
+            ? `${baseUrl}?page=${Number(page) + 1}&limit=${limit}`
+            : null;
+
+        const prev = (page > 1)
+            ? `${baseUrl}?page=${Number(page) - 1}&limit=${limit}`
+            : null;
+
+        return {
+            total,
+            totalPages,
+            prev,
+            next,
+            page,
+            limit,
+            data,
+        };
     }
 
     async findOneEmpleado(id_empleado: number) {
         const empleado = await this.repoEmpleado.findOne({
             where: { id_empleado },
-            relations: [ "RegistroProduccion", "RegistroAsistencia" ]
+            relations: [ "produccion", "asistencia" ]
         });
         if(!empleado) throw new NotFoundException("Empleado no encontrado");
         return empleado;

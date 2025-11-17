@@ -8,7 +8,7 @@ import { Usuario } from './entities/usuario.entity';
     imports: [
         TypeOrmModule.forFeature([
             Usuario
-        ])
+        ],"conexion-postgres")
     ],
     controllers: [UsuariosController],
     providers: [UsuariosService],

@@ -8,7 +8,7 @@ import { Tarea } from "./entities/tarea.entity";
     imports: [
         TypeOrmModule.forFeature([
             Tarea,
-        ]),
+        ], "conexion-mariadb"),
     ],
     controllers: [ TareaController ],
     providers: [ TareaService ]

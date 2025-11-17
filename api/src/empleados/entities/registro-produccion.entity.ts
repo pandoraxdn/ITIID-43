@@ -1,13 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Empleado } from "./empleado.entity";
 import { Turno } from "../enum/turno.enum";
 
 @Entity("RegistroProduccion")
 export class RegistroProduccion{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "id_reg_p" })
     id_reg_p:           number;
     
     @ManyToOne( () => Empleado, (empleado) => empleado.produccion )
+    @JoinColumn({ name: "id_empleado" })
     empleado:           Empleado;
 
     @Column({ type: "date" })

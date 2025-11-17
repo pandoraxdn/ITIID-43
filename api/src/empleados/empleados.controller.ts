@@ -1,20 +1,39 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query, Req } from '@nestjs/common';
 import { EmpleadosService } from './empleados.service';
 import { CreateEmpleado } from './dto/create-empleado.dto';
 import { UpdateEmpleado } from './dto/update-empleado.dto';
+import * as express from 'express';
+import { CreateRegistroAsistencia } from './dto/create-registro-asistencia.dto';
+import { CreateRegistroProduccion } from './dto/create-registro-produccion.dto';
 
 @Controller('empleados')
 export class EmpleadosController {
-  constructor(private readonly empleadosService: EmpleadosService) {}
+    constructor(private readonly empleadosService: EmpleadosService) {}
 
     @Post()
     createEmpleado(@Body( new ValidationPipe() ) data: CreateEmpleado) {
         return this.empleadosService.createEmpleado(data);
     }
 
+    @Post("create-asistencia")
+    asistencia(@Body( new ValidationPipe() ) data: CreateRegistroAsistencia) {
+        return this.empleadosService.createRegistroAsistencia(data);
+    }
+
+    @Post("create-produccion")
+    produccion(@Body( new ValidationPipe() ) data: CreateRegistroProduccion) {
+        return this.empleadosService.createRegistroProduccion(data);
+    }
+
     @Get()
-    findAllEmpleado() {
-        return this.empleadosService.findAllEmpleado();
+    async findAll(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+        @Req() req: express.Request
+    ) {
+        const baseUrl = `${req.protocol}://${req.host}${req.baseUrl}/api/dsm44/empleado/paginate`;
+
+        return this.empleadosService.findAllEmpleado(Number(page), Number(limit), baseUrl);
     }
 
     @Get(':id_empleado')

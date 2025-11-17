@@ -52,9 +52,9 @@ export class UpdateEmpleado {
 
     @Type( () => RegistroProduccion )
     @IsOptional()
-    produccion: RegistroProduccion;
+    produccion?: RegistroProduccion[];
 
     @Type( () => RegistroAsistencia )
     @IsOptional()
-    asistencia: RegistroAsistencia;
+    asistencia?: RegistroAsistencia[];
 }

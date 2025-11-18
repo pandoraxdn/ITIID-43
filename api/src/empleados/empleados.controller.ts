@@ -25,13 +25,59 @@ export class EmpleadosController {
         return this.empleadosService.createRegistroProduccion(data);
     }
 
+    @Get("total-asistencias")
+    //http://localhost:3000/api/dsm43/empleados/total-asistencias?id_empleado=1&fechaInicio=01/01/2025&fechaFin=01/01/2025
+    async getAsistencias(
+        @Query('id_empleado') id_empleado: number,
+        @Query('fechaInicio') fechaInicio: string,
+        @Query('fechaFin') fechaFin: string,
+    ) {
+        return this.empleadosService.getAsistencias(id_empleado, fechaInicio, fechaFin);
+    }
+
+    @Get("nomina")
+    async getNomina(
+        @Query('id_empleado') id_empleado: number,
+        @Query('fechaInicio') fechaInicio: string,
+        @Query('fechaFin') fechaFin: string,
+    ) {
+        return this.empleadosService.getNomina(id_empleado, fechaInicio, fechaFin);
+    }
+
+    @Get("dias-trabajados")
+    async getDiasTrabajados(
+        @Query('id_empleado') id_empleado: number,
+        @Query('fechaInicio') fechaInicio: string,
+        @Query('fechaFin') fechaFin: string,
+    ) {
+        return this.empleadosService.getDiasTrabajados(id_empleado, fechaInicio, fechaFin);
+    }
+
+    @Get("reporte-asistencia")
+    async getReporteAsistencia(
+        @Query('id_empleado') id_empleado: number,
+        @Query('fechaInicio') fechaInicio: string,
+        @Query('fechaFin') fechaFin: string,
+    ) {
+        return this.empleadosService.getReporteAsistencia(id_empleado, fechaInicio, fechaFin);
+    }
+
+    @Get("reporte-produccion")
+    async getReporteProduccion(
+        @Query('id_empleado') id_empleado: number,
+        @Query('fechaInicio') fechaInicio: string,
+        @Query('fechaFin') fechaFin: string,
+    ) {
+        return this.empleadosService.getReporteProduccion(id_empleado, fechaInicio, fechaFin);
+    }
+
     @Get()
     async findAll(
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 10,
         @Req() req: express.Request
     ) {
-        const baseUrl = `${req.protocol}://${req.host}${req.baseUrl}/api/dsm44/empleado/paginate`;
+        const baseUrl = `${req.protocol}://${req.host}${req.baseUrl}/api/dsm43/empleados`;
 
         return this.empleadosService.findAllEmpleado(Number(page), Number(limit), baseUrl);
     }
@@ -65,4 +111,5 @@ export class EmpleadosController {
     createProduccion(@Param("id_empleado") id_empleado: number, @Param("unidadesProducidas") unidadesProducidas: number){
         return this.createProduccion(id_empleado, unidadesProducidas);
     }
+
 }

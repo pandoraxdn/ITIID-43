@@ -54,6 +54,7 @@ const makeISO = (fecha, hour, minute) => {
   const [y, m, d] = fecha.split("-").map(Number);
   return new Date(y, m - 1, d, hour, minute, 0).toISOString();
 }
+
 const safePost = async (url, body, maxIntentos = 10, delayMs = 1000) => {
     let intento = 0;
 

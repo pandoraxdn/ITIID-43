@@ -35,7 +35,7 @@ import { EmpleadosModule } from './empleados/empleados.module';
         port: 5432,
         username: "najimi",
         password: "pass",
-        database: "dsm432025",
+        database: "empresa",
         entities: [ Usuario ],
         synchronize: true,
         autoLoadEntities: true,

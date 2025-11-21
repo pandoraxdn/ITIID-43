@@ -14,6 +14,8 @@ import { GraficosScreen } from "../screens/char/GraficosScreen";
 import { SensorData } from "../screens/char/SensorData";
 //import { LoginScreenII } from "../screens/user/LoginScreenII";
 import { QrScreen } from "../screens/QrScreen";
+import { LocationScreen } from "../screens/LocationScreen";
+import {QrScannerScreen} from "../screens/QrScannerScreen";
 
 
 export type RootDrawerNavigator = {
@@ -26,6 +28,8 @@ export type RootDrawerNavigator = {
     GraficosScreen:         undefined;
     SensorData:             undefined;
     QrScreen:               undefined;
+    LocationScreen:         undefined;
+    QrScannerScreen:        undefined;
 }
 
 const Navigator = () => {
@@ -82,6 +86,14 @@ const Navigator = () => {
             <Drawer.Screen
                 name="QrScreen"
                 component={QrScreen}
+            />
+            <Drawer.Screen
+                name="LocationScreen"
+                component={LocationScreen}
+            />
+            <Drawer.Screen
+                name="QrScannerScreen"
+                component={QrScannerScreen}
             />
         </Drawer.Navigator>
     );

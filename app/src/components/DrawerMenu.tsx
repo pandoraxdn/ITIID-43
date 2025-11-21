@@ -5,6 +5,29 @@ import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-nav
 import { appTheme } from '../themes/appTheme';
 import { BtnTouch } from './BtnTouch';
 
+interface Props{
+    title: string;
+    navigate: () => void;
+}
+
+const BtnDrawer = ( { title, navigate }: Props ) => {
+    return(
+        <TouchableOpacity
+            onPress={ navigate }
+        >
+            <View
+                style={appTheme.menuBtn}
+            >
+                <Text
+                    style={appTheme.textBtn}
+                >
+                    { title }
+                </Text>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
 export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
 
     const assets: string = "./../../assets";
@@ -44,125 +67,52 @@ export const DrawerMenu = ( { navigation }:DrawerContentComponentProps ) => {
                 <View
                     style={appTheme.menuContainer}
                 >
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("PokemonNavigator") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Pokedex
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("TareaNavigator") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Crud Tareas
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("StackNav") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Stack Navigator
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("ImagePickerScreen") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Image Picker
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("UserNavigator") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Crud Usuarios
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("ConfigurationScreen") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Confguración
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("GraficosScreen") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Graficos
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("SensorData") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Graficos Sensor
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={ () => navigation.navigate("QrScreen") }
-                    >
-                        <View
-                            style={appTheme.menuBtn}
-                        >
-                            <Text
-                                style={appTheme.textBtn}
-                            >
-                                Código QR
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                    <BtnDrawer
+                        title='Pokedex'
+                        navigate={ () => navigation.navigate("PokemonNavigator") }
+                    />
+                    <BtnDrawer
+                        title='Crud Tareas'
+                        navigate={ () => navigation.navigate("TareaNavigator") }
+                    />
+                    <BtnDrawer
+                        title='Stack Navigator'
+                        navigate={ () => navigation.navigate("StackNav") }
+                    />
+                    <BtnDrawer
+                        title='Image Picker'
+                        navigate={ () => navigation.navigate("ImagePickerScreen") }
+                    />
+                    <BtnDrawer
+                        title='Crud Usuarios'
+                        navigate={ () => navigation.navigate("UserNavigator") }
+                    />
+                    <BtnDrawer
+                        title='Confguración'
+                        navigate={ () => navigation.navigate("ConfigurationScreen") }
+                    />
+                    <BtnDrawer
+                        title='Graficos'
+                        navigate={ () => navigation.navigate("GraficosScreen") }
+                    />
+                    <BtnDrawer
+                        title='Sensor'
+                        navigate={ () => navigation.navigate("SensorData") }
+                    />
+                    <BtnDrawer
+                        title='QR'
+                        navigate={ () => navigation.navigate("QrScreen") }
+                    />
+                    <BtnDrawer
+                        title='Ubicación'
+                        navigate={ () => navigation.navigate("LocationScreen") }
+                    />
+                    <BtnDrawer
+                        title='Escaner QR'
+                        navigate={ () => navigation.navigate("QrScannerScreen") }
+                    />
                 </View>
             </View>
         </DrawerContentScrollView>
-    )
+    );
 }

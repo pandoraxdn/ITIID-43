@@ -13,14 +13,24 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBSv_Vj4BuLPICUQMMqhQdKIFFSxlrGyig"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBSv_Vj4BuLPICUQMMqhQdKIFFSxlrGyig"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +40,20 @@
             "expo-image-picker",
             {
               "photosPermission": "La aplicación App necesita acceder a tu librería"
+            }
+        ],
+        [
+            "expo-location",
+            {
+              "locationAlwaysAndWhenInUsePermission": "La aplicación App, necesita tu ubicación."
+            }
+        ],
+        [
+            "expo-camera",
+            {
+              "cameraPermission": "El aplicativo App necesita poder acceder a la camara del dispositivo",
+              "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+              "recordAudioAndroid": true
             }
         ]
     ]
